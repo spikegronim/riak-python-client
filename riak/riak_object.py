@@ -40,7 +40,13 @@ class RiakObject(object):
         :type key: string
         """
         if isinstance(key, unicode):
-            raise TypeError('Unicode keys are not supported.')
+            # TODO: tests
+            # TODO: mapreduce code is sending unicode keys here
+            str_key = str(key)
+            if str_key == key:
+                key = str_key
+            else:
+                raise TypeError('Unicode keys are not supported.')
 
         self._client = client
         self._bucket = bucket

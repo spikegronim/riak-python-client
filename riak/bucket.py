@@ -39,7 +39,13 @@ class RiakBucket(object):
         :type name: string
         """
         if isinstance(name, unicode):
-            raise TypeError('Unicode bucket names are not supported.')
+            # TODO: tests
+            # TODO: mapreduce code is sending unicode names here
+            str_name = str(name)
+            if str_name == name:
+                name = str_name
+            else:
+                raise TypeError('Unicode bucket names are not supported.')
 
         self._client = client
         self._name = name
