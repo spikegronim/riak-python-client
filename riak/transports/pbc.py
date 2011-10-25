@@ -356,7 +356,7 @@ class RiakPbcTransport(RiakTransport):
 
     def send_msg_code(self, msg_code):
         pkt = struct.pack("!iB", 1, msg_code)
-        self._sock.send(pkt)
+        self._sock.sendall(pkt)
 
     def encode_msg(self, msg_code, msg):
         str = msg.SerializeToString()
@@ -366,10 +366,7 @@ class RiakPbcTransport(RiakTransport):
 
     def send_msg(self, msg_code, msg):
         pkt = self.encode_msg(msg_code, msg)
-        sent_len = self._sock.send(pkt)
-        if sent_len != len(pkt):
-            raise RiakError("PB socket returned short write %d - expected %d"%\
-                            (sent_len, len(pkt)))
+        self._sock.sendall(pkt)
 
     def recv_msg(self):
         self.recv_pkt()

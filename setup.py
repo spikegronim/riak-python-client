@@ -18,7 +18,7 @@ def make_pb():
 if __name__ == "__main__":
     setup(
         name='riak',
-        version='1.3.0',
+        version='1.3.0-patch2',
         packages = find_packages(),
         install_requires = ['protobuf>=2.3.0', 'urllib3>=0.4.0'],
         dependency_links = ["http://downloads.basho.com/support"],
